@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import Product from '../components/Product';
-import { productStore } from '../store/products';
+import productStore from '../store/productStore';
 
 const HomePage = () => {
   const { data, isLoading, fetchProducts } = productStore();
