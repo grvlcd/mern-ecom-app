@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Card, Button, ListGroupItem, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -13,12 +13,12 @@ const ProductDetailsPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const [qty, setqty] = useState(0);
+  const [qty, setQty] = useState(1);
   const { data: product, isLoading, error } = useGetProductByIdQuery(id);
 
   const handleAddToCart = () => {
-    dispatch(addToCart({ ...product, qty }));
-    // navigate('/cart');
+    dispatch(addToCart({ ...product, qty: parseInt(qty) }));
+    navigate('/cart');
   }
 
   return (
@@ -73,7 +73,7 @@ const ProductDetailsPage = () => {
                       <Row>
                         <Col>Quantity</Col>
                         <Col>
-                          <Form.Control as='select' value={qty} onChange={(e) => setqty(e.target.value)}>
+                          <Form.Control as='select' value={qty} onChange={(e) => setQty(e.target.value)}>
                             {[...Array(product.countInStock).keys()].map((count) => (
                               <option key={count + 1} value={count + 1}>
                                 {count + 1}

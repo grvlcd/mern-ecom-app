@@ -27,7 +27,7 @@ const Header = () => {
                   {
                     cartItems.length > 0 && (
                       <Badge pill bg='danger' style={{ marginLeft: '5px' }}>
-                        {Number(cartItems.reduce((accu, current) => accu + current.qty, 0)).toFixed(0)}
+                        {cartItems.reduce((accu, current) => accu + current.qty, 0)}
                       </Badge>
                     )
                   }
