@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addDecimal } from "../../utils/addDecimal";
 import { updateCart } from "../../utils/updateCart";
 
 const initialState = localStorage.getItem("cart")
