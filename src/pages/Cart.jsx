@@ -4,7 +4,7 @@ import { FaTrash } from "react-icons/fa";
 import Message from "../components/Message";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { addToCart } from "../store/slices/cartSlice";
+import { addToCart, removeToCart } from "../store/slices/cartSlice";
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -13,6 +13,15 @@ const CartPage = () => {
 
   const handleAddToCart = (item, value) => {
     dispatch(addToCart({ ...item, qty: value }))
+  }
+
+  const handleRemoveToCart = (item) => {
+    const id = item._id
+    dispatch(removeToCart(id))
+  }
+
+  const handleCheckout = () => {
+    navigate('/login?redirect=/shipping')
   }
 
   return (
@@ -55,7 +64,7 @@ const CartPage = () => {
                           </Form.Control>
                         </Col>
                         <Col md={2}>
-                          <Button type='button' variant='light'>
+                          <Button type='button' variant='light' onClick={() => handleRemoveToCart(item)}>
                             <FaTrash />
                           </Button>
                         </Col>
@@ -77,7 +86,12 @@ const CartPage = () => {
                 ${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}
               </ListGroupItem>
               <ListGroupItem>
-                <Button type='button' className="btn-block" disabled={cartItems.length === 0}>
+                <Button
+                  type='button'
+                  className="btn-block"
+                  disabled={cartItems.length === 0}
+                  onClick={handleCheckout}
+                >
                   Proceed to Checkout
                 </Button>
               </ListGroupItem>
